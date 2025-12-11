@@ -1,169 +1,251 @@
-# LLM CLI乱立時代の新・アクティブラーニング論
+# LLM-Powered Active Learning in the Age of CLI Tools
 
-## はじめに：学びの主役がPDFとYouTubeになった時代に
+A modern, reproducible, multi-LLM approach for learning complex technical topics with **nbdev**, **Jupyter Notebooks**, and **LLM CLI tools** (Claude, OpenAI, Gemini, DeepSeek).
 
-いま私たちが触れる学習素材の多くは、PDFの論文・スライド、そしてYouTubeの講義動画だ。これは利便性の反面、扱いづらい構造も持っている。動画は**線形**で“検索しにくく”、PDFは読み進めても理解が追いつかないことがある。そして現代の学習者にとって最大の問題は、**興味がない部分は脳に定着しない**という当たり前の事実だ。
-
-しかし同時に、私たちは知っている。**理解はアウトプットによって初めて完成する**ということを。書く、話す、教える、議論する……その過程で曖昧さが浮き彫りになり、思考が研ぎ澄まされる。アウトプットしない限り「理解したつもり」のまま終わってしまうし、記憶にも残らない。そして人に教えることは理解の最終段階であり、同じ興味を持つ人との議論は、しばしばイノベーションの起爆剤にもなる。
-
-こうした背景の中で、現代の学習者を取り巻く状況はさらに複雑化している。理由はシンプルで、**Coding LLM CLIが乱立しているから**だ。Claude、OpenAI、Gemini、DeepSeek……どれも強力だが、それぞれ得意領域が違い、適材適所で使わなければ本来の性能を引き出せない。
-
-だからこそ、私は考える。**学習とは、もはや単独ツールで完結する行為ではない。**
-複数のLLMを「学習パートナー」として使い分け、Notebookを中心に水平・垂直に自由移動しながら学ぶことこそが、現代の学習に最適化された姿だ。
-
-その“学習OS”として最も適しているのが、**nbdev × 複数LLM CLI**という組み合わせである。nbdev自体は、実験、確認、関数化、ライブラリ化、文書化、公開を同じjupyter notebook上でシームレスに行うフレームワークです。
-
-## Solveitへの軽い不満と、なぜ私は“別の学習OS”を求めたのか
-
-Solveit は思想として素晴らしい。Jeremy Howard が提案する「思考をツールで支援する」という哲学には深く共感するし、学習と実装を近づけようとする試みも評価に値する。しかし、実際に intensive な学習・研究用途として使おうとすると、いくつかの弱点が浮き上がってくる。
-
-* **動作が不安定で、学習フローが中断されることがある**
-* **レスポンスが遅く、プログラミングエディタとしては致命的な場面がある**
-* **Claudeへの依存が強く、複数LLMを適材適所で使い分けたい現代の学習スタイルと相性が悪い**
-* **リポジトリ全体を横断しながら学習する“オーガニック学習”に向いていない**
-
-Solveit は「軽い思考補助ツール」としては魅力的だが、
-**私のように深いR&D、コード実験、長文解析、複数LLMの協業が必要な学習スタイルには適合しなかった。**
-
-そこで私は、Solveit の思想は継承しつつ、制約のない“自分専用の学習OS”として **nbdev × 複数LLM CLI** という構成に辿り着いた。
+This README presents a polished, GitHub‑friendly version of the article—structured, scannable, and ready for open‑source publication.
 
 ---
 
-## nbdevが与えてくれる「学びの土壌」
+## 🌍 Why This Learning Method Exists
 
-nbdevの強みは、単なるPythonパッケージ生成ツールではなく、**学習・実験・記録・公開の全てがNotebookひとつに統合される点**だ。
-Notebookは、思考の揺らぎや試行錯誤、コード例、図、長文メモ、そしてLLMとの対話ログまでも一つのファイルに統合できる。さらに、そのNotebookから直接パッケージ化・ドキュメント化・ブログ公開まで一気通貫で行える。
+Most technical learning today depends on two linear formats:
 
-つまりnbdevは、学びそのものを“資産”へと変換するための土壌なのだ。
+* **PDFs** (dense, hard to search)
+* **YouTube lectures** (linear, slow to navigate)
 
-ここに複数LLM CLIを組み合わせると、Notebookは一気に**自分専用の有機的学習空間（learning ecosystem）**へと進化する。
+Meanwhile, modern AI engineering requires *nonlinear, curiosity-driven exploration*.
 
----
+**Understanding only matures through output**:
 
-## 複数LLM CLIがもたらす「専門家チームとしての学習体験」
+* writing
+* explaining
+* teaching
+* debating
 
-Claudeは長文解析・構造化が得意。OpenAIはコード生成・API設計が強い。Geminiは巨大コンテキスト処理に秀でる。DeepSeekは圧倒的なコスパで反復実験向き。
+And today's landscape includes a growing ecosystem of **LLM CLI tools**, each with different strengths. No single model is sufficient.
 
-このように特性の異なるLLMが並び立つ2025年において、**ひとつのLLMだけで学ぶのは、ひとつの専門分野しか語れない先生に全教科を教わるようなもの**だ。
-CLIを使うことで、学習者は状況に応じてLLMを切り替え、複数の視点から学びを掘り下げることができる。いわば自分専用の“専門家チーム”を横に抱えて学習しているような体験になる。
+Learning must therefore be:
 
-これが、従来の学習方法では到達できない深さと速度を生む。
+* interactive
+* nonlinear
+* multi-LLM
+* notebook‑centric
+* automated where possible
 
-### tmuxでLLM CLIを水平展開する
+This leads to a natural solution:
 
-複数LLM CLIを実戦投入する際は、tmuxでセッションを張り、それぞれのペイン/ウィンドウに異なるLLM CLI（例：Claude CLI、OpenAI CLI、DeepSeek CLI）を常駐させるのが最もストレスが少ない。
-
-1. `tmux new -s llm-lab` で学習用セッションを開始
-2. `Ctrl-b "` や `Ctrl-b %` でペインを分割し、各ペインで `claude ...` / `openai ...` / `deepseek ...` を起動
-3. `Ctrl-b w` でウィンドウを移動しながらログを残したまま上下左右に行き来
-
-tmuxを使えば、LLM CLIの出力ログを保持したままNotebookやブラウザへ戻ることができ、複数モデルの回答を並べて比較したり、回答を即座にNotebookへ貼り付けたりといった“水平移動”が圧倒的にスムーズになる。
-
----
-
-## オーガニック学習：水平・垂直に自由に移動できることの意味
-
-人間の理解は、線形ではない。興味を持った瞬間に深掘りしたいのが自然であり、退屈な箇所をスキップしたいのもまた自然だ。
-
-そして、理解はしばしば上下左右に跳ねる。
-
-* ある概念を理解するために前提へ戻る（垂直移動）
-* 似た別概念へジャンプして比較する（水平移動）
-* 具体→抽象→具体 と往復する（ダブルループ学習）
-
-この“オーガニック”な動きこそが、学習を高速化し、記憶に定着させ、モチベーションを保ち続ける鍵である。
-
-nbdevと複数LLM CLIは、この自然な学びの構造をそのまま受け止める。
-Notebookは非線形に広がり、LLMはいつでも疑問を処理し、コードもテキストも自由に混在できる。これは従来のPDF学習や動画視聴が持つ“線形性”とは対極のアプローチだ。
+> **nbdev × Multi-LLM CLI = The Learning Operating System for 2025**
 
 ---
 
-## プログラマの三大美徳と現代アクティブラーニング
+## ⚠️ A Respectful Note on Solveit
 
-Larry Wallが提唱した「プログラマの三大美徳」— **怠惰（Laziness）・短気（Impatience）・傲慢（Hubris）** は、皮肉ではなく、学習においても本質を突く知恵だ。
+Solveit carries a great vision—"tool‑assisted thinking"—but has practical limits for deep R&D:
 
-* **怠惰** → 面倒なことは自動化するべき
-* **短気** → 無駄な時間をかけず最短距離で理解したい
-* **傲慢** → 自分の理解を正確に示し、他人に教えられる形に保つ
+| Solveit Strengths    | Solveit Limitations                             |
+| -------------------- | ----------------------------------------------- |
+| Strong philosophy    | Occasional instability                          |
+| Nice editing UI      | Slow responsiveness for programming             |
+| Integrated workflow  | Claude dependency → no multi‑LLM workflows      |
+| Good for light tasks | Hard to navigate large repositories organically |
 
-まさにnbdev × LLM CLIの組み合わせは、この三大美徳を体現した学習様式だ。
+Solveit is a great thought tool, but **not a full learning OS**.
 
-学習における“怠惰”は自動化となり、“短気”は高速反復となり、“傲慢”はアウトプットとして結晶化する。この3つがそろった時、学習は最大効率に達する。
+nbdev + multi‑LLM CLIs fills that gap.
 
 ---
 
-## Step 5：依存関係の可視化（GraphvizによるDAG表示）
+## 🧱 Why nbdev Is the Ideal Learning Substrate
 
-ClaudeやGeminiを使えば、学習トピック同士の依存関係をDAG（有向非巡回グラフ）として抽出できる。それをGraphvizで可視化すると、**自分専用の“学習マップ”**が生成される。
+nbdev unifies:
 
-例：
+* exploration
+* documentation
+* testing
+* packaging
+* publication
 
+**Everything inside a single Notebook.**
+
+### With nbdev you can:
+
+* keep experiments + notes + diagrams + LLM dialogue together
+* export only the reusable code as modules
+* auto-generate documentation sites
+* publish directly to GitHub Pages
+
+> **nbdev turns "learning" into "accumulated software assets."**
+
+---
+
+## 🤖 Why Multi‑LLM CLI Tools Are Essential
+
+Each LLM plays a different role:
+
+| Model        | Strength                                     |
+| ------------ | -------------------------------------------- |
+| **Claude**   | structure, reasoning, transcript digestion   |
+| **OpenAI**   | coding, API design, refactoring              |
+| **Gemini**   | huge context windows, multi-source synthesis |
+| **DeepSeek** | cost-efficient iterative experimentation     |
+
+Using only one model is like relying on a single professor to teach every subject.
+
+Using many models is like having a team of specialists.
+
+---
+
+## 🌱 Organic Learning: Horizontal + Vertical Mobility
+
+True understanding requires nonlinear jumps:
+
+* **Vertical** → prerequisites, foundations
+* **Horizontal** → similar concepts, adjacent tech
+* **Cyclical** → abstract ↔ concrete loops
+
+nbdev + LLM CLIs support this natural pattern:
+
+* notebooks allow branching thought
+* LLMs answer questions instantly
+* code runs beside explanations
+* graphs, tests, and text coexist
+
+This is the opposite of passive reading or video watching.
+
+---
+
+## 🧘 The Three Virtues of Programmers (as Learning Principles)
+
+Larry Wall’s virtues map perfectly to this workflow:
+
+* **Laziness** → automate everything (summaries, extraction, publication)
+* **Impatience** → minimize friction (multi‑LLM, instant iteration)
+* **Hubris** → produce elegant, teachable outputs (nbdev docs)
+
+Your learning becomes:
+
+* automated
+* fast
+* output‑driven
+
+---
+
+## 🗺️ Visualizing Knowledge: Dependency Graphs With Graphviz
+
+Below is an equivalent **Mermaid** version (GitHub-native rendering):
+
+```mermaid
+graph LR
+  Foundations --> RAG
+  Foundations --> MoE
+  RAG --> MultiAgent
+  MoE --> Orchestration
+  Orchestration --> FastHTML
+  FastHTML --> AppDev
 ```
+
+LLMs can extract prerequisite graphs from lecture transcripts:
+
+```dot
 digraph learning {
   rankdir=LR;
-  "基礎LLM" -> "RAG";
-  "基礎LLM" -> "MoE";
+  "Foundations" -> "RAG";
+  "Foundations" -> "MoE";
   "RAG" -> "Multi-agent";
   "MoE" -> "LLM Orchestration";
   "LLM Orchestration" -> "FastHTML";
-  "FastHTML" -> "LLMアプリ構築";
+  "FastHTML" -> "LLM App Development";
 }
 ```
 
-この図は単なる視覚化ではなく、学ぶ順序の最適化そのものであり、迷わず深掘りできる“地図”になる。
+This produces a **personal learning map**, not a generic syllabus.
 
 ---
 
-## nbdev × LLM CLIで行うアクティブラーニング手順まとめ
+## 🔧 Complete Workflow: nbdev × Multi‑LLM Active Learning
 
-※ 特に **3 → 4 → 5 のステップは論理的につながっており**、以下の流れで理解が深まるように設計されている：
+A concise, actionable workflow.
 
-* **Step 3（詳細ToC生成）**：教材の構造を“外側から”把握し、地図の輪郭を描く段階。
-* **Step 4（興味抽出）**：その地図の中から“自分が向かいたい地点”を選ぶ段階。
-* **Step 5（依存関係の可視化）**：選んだ目的地に到達するための“最適なルート”を生成する段階。
+### **1. Create an nbdev repository**
 
-つまり **3 は地図、4 は目的地選択、5 はルート設計**に相当し、学習プロセス全体をブレずに進める土台になる。
+Establish the notebook as the central learning workspace.
 
-以下は、私が考える2025年版の最適な学習プロセスだ。
+### **2. Collect transcripts and key materials**
 
-1. nbdevリポをGitHubに作成し、`nbdev_new` で初期化してNotebook中心の学習環境を整える。
-2. 学習素材（動画TranscriptやPDFなど）のTranscript/要点をLLM/CLIで収集する。
-3. Claude/Gemini CLIで詳細ToCを生成し、教材全体の地図を描く。
-4. 興味のあるトピックだけを学習対象に絞り（Interest-first Learning）、優先順位を定める。
-5. 選んだトピックの依存関係をLLMに抽出させ、GraphvizでDAGとして可視化する。
-6. DAGで親を持たないトピックから順に着手し、依存関係を辿りながら学習を進める。
-7. Notebook内でLLMとBack & Forthし、完全理解できるまで深掘りする。
-8. Notebook内でコード実験・ミニテストを実施し、理解度を検証する。
-9. 再利用価値のある内容だけを `nbdev_export` でlibraryノートへ切り出す。
-10. nbdevで自動ドキュメント化し、Web公開（Docs/ブログ）まで仕上げる。
-11. LLMでSNS向けサマリ（X, LinkedIn, Tiktok, Instagram, YTなど）を生成し、スクリプトで自動投稿する（シェア文化）。
-12. 学習途中でも随時LLM（例：Claude CLI output -> Codex CLI）にレビューワークを依頼し、メタ認知を保つ。
+(PDF → text, YouTube → transcript)
 
-```mermaid
-flowchart TD
-    S1[Step 1: nbdevリポ作成と nbdev_new 初期化]
-    S2[Step 2: 学習素材のTranscript/要点収集]
-    S3[Step 3: 詳細ToC生成]
-    S4[Step 4: 興味抽出・優先順位]
-    S5[Step 5: 依存関係DAG可視化]
-    S6[Step 6: 親なしトピックから着手]
-    S7[Step 7: NotebookでLLMと往復深掘り]
-    S8[Step 8: コード実験・ミニテスト]
-    S9[Step 9: nbdev_exportでライブラリ化]
-    S10[Step 10: 自動ドキュメント化・Web公開]
-    S11[Step 11: SNSサマリ生成・自動投稿]
-    S12[Step 12: LLMレビューでメタ認知維持]
+### **3. Generate detailed Table of Contents with LLMs**
 
-    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8 --> S9 --> S10 --> S11 --> S12
-```
+Build an outline of the entire knowledge space.
 
+### **4. Extract only the topics you care about**
+
+Interest‑driven learning is more efficient.
+
+### **5. Generate dependency graphs → visualize with Graphviz**
+
+Map the optimal learning path.
+
+### **5a. Start from nodes with no prerequisites**
+
+Always learn from the *roots*.
+
+### **6. Deepen understanding via back-and-forth LLM dialogue inside the Notebook**
+
+A Socratic loop.
+
+### **7. Run small code experiments and inline tests**
+
+Learning becomes embodied.
+
+### **8. Export reusable logic via `nbdev_export`**
+
+Only the distilled knowledge becomes library code.
+
+### **9. Auto‑generate documentation and publish via GitHub Pages**
+
+Your learning becomes a public artifact.
+
+### **10. Auto-generate social media summaries (X/LinkedIn/TikTok/etc.)**
+
+Share and refine ideas through community feedback.
+
+### **11. Request ongoing LLM reviews—continuously**
+
+Not just at the end.
 
 ---
 
-## おわりに
+## 🎯 Why This Method Works
 
-学習とは、本来もっと自由で、もっと創造的で、もっと個人的な営みだ。線形教材に自分を合わせるのではなく、**自分の興味と速度に合わせて学習空間を動的に生成する**。そのための最適な道具立てこそが、nbdevと複数LLM CLIなのだ。
+This learning OS delivers:
 
-この方法は、理解を深め、記憶に定着させ、アウトプットを促し、他者との議論を誘発し、結果としてイノベーションを生みやすい環境を整えてくれる。
+* **faster understanding** (multi‑LLM reasoning)
+* **deeper retention** (output-driven learning)
+* **scalable knowledge assets** (nbdev)
+* **nonlinear exploration** (organic learning)
+* **public visibility & collaboration** (auto docs + social posts)
 
-学びとは、もはや孤独な作業ではない。Notebookをひらけば、そこには専門家チーム（LLM）がいて、興味があればどこへでも飛べる。これこそが2025年以降の“オーガニックで効率的な学習”の姿だ。モチベーションと効率化を最大限に追求した、まさに究極の学習法だ。
+You open a notebook, and instantly:
+
+* multiple expert LLMs stand by
+* experiments run inline
+* graphs and dependencies update dynamically
+* outputs turn into reusable modules
+* the entire process is archived and shareable
+
+---
+
+## 📌 Final Thought
+
+Learning should not be passive, lonely, or linear.
+
+With nbdev × Multi‑LLM CLI, learning becomes:
+
+* **organic**
+* **efficient**
+* **scalable**
+* **creative**
+* **motivating**
+
+This is what active learning should look like in 2025 and beyond.
